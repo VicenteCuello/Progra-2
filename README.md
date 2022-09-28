@@ -1,3 +1,3 @@
 # Progra-2
-Vicente Cuello
-Maximiliano Lopez
+Vicente Javier Cuello Diban
+Maximiliano Esteban López Becerra
