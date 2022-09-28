@@ -57,10 +57,27 @@ class DetalleOrden{
         total = calcPeso() + calcPrecioSinIVA();
         return total;
     }
-
+}
+class Cliente{
+    private String nombre;
+    private String rut;
+    public Cliente(String name, String run){
+        nombre = name;
+        run = rut;
+    }
     
-        
- }
+}
+class Direccion{
+    private String direccion;
+    public Direccion(String dir){
+        direccion = dir;
+    }
+}
+class DocTributario{
+    private String numero;
+    private String rut;
+    privte Date fecha;
+}
 
 public class Tarea {
 
