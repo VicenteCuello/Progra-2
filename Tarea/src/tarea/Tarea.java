@@ -25,12 +25,16 @@ class DetalleOrden{
     private int cantidad;
     private int i;
     public DetalleOrden(){
+        a = new ArrayList <Articulo>();
+    }
+    public void addArticulo(Articulo r){
+        a.add(r);
         
     }
     public Articulo calcPrecio(){
         float total = 0;
         for(i=0; i< a.size();i++){
-            total = getPrecio();
+            total= a.get(i).getPrecio() + total;
         }
     }
         
