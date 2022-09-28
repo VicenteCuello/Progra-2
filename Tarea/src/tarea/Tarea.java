@@ -31,12 +31,34 @@ class DetalleOrden{
         a.add(r);
         
     }
-    public Articulo calcPrecio(){
+    public float calcPrecio(){
         float total = 0;
         for(i=0; i< a.size();i++){
             total= a.get(i).getPrecio() + total;
         }
+        return total;
     }
+    public float calcPeso(){
+        float total = 0;
+        for(i=0; i< a.size();i++){
+            total= a.get(i).getPeso() + total;
+        }
+        return total;
+    }
+    public float calcPrecioSinIVA(){
+        float total = 0;
+        for(i=0; i< a.size();i++){
+            total= (a.get(i).getPeso()/100)*19 + total;
+        }
+        return total;
+    }
+    public float calcIVA(){
+        float total = 0;
+        total = calcPeso() + calcPrecioSinIVA();
+        return total;
+    }
+
+    
         
  }
 
