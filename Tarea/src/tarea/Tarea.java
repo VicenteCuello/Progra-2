@@ -1,6 +1,7 @@
 
 package tarea;
 import java.util.ArrayList;
+import java.util.Date;
 
 class Articulo{
     private float peso;
@@ -76,9 +77,43 @@ class Direccion{
 class DocTributario{
     private String numero;
     private String rut;
-    privte Date fecha;
+    private Date fecha;
+    
+    public DocTributario(String num, String run, Date f){
+        numero = num;
+        rut = run;
+        fecha = f;
+    }
 }
-
+class Pago{
+    private float monto;
+    private Date fecha;
+    
+    public Pago(float m, Date f){
+        monto = m;
+        fecha = f;
+    }
+}
+class Efectivo extends Pago{
+    public float calcDevolucion(){  
+    }
+}
+class Transferencia extends Pago{
+    private String banco;
+    private String numCuenta;
+}
+class Tarjeta extends Pago{
+    private String tipo;
+    private String numTransaccion;
+}
+class Boleta extends DocTributario{
+    
+}
+class Factura extends DocTributario{
+    
+}
+        
+        
 public class Tarea {
 
     
