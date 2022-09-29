@@ -64,7 +64,7 @@ class Cliente{
     private String rut;
     public Cliente(String name, String run){
         nombre = name;
-        run = rut;
+        rut = run;
     }
     
 }
@@ -93,18 +93,44 @@ class Pago{
         monto = m;
         fecha = f;
     }
+    public float getPago(){
+        return monto;
+    }
+    
 }
 class Efectivo extends Pago{
-    public float calcDevolucion(){  
+    public Efectivo(float m,Date f){
+        super(m,f);
+    }
+    public float calcDevolucion(float p){
+        if(getPago() <= p){
+            p = p - getPago();
+            
+        }
+        else if(p < getPago()){
+            p = 0;
+        }
+        return p;
     }
 }
 class Transferencia extends Pago{
     private String banco;
     private String numCuenta;
+    public Transferencia(float m,Date f, String b,String nc){
+        super(m,f);
+        banco = b;
+        numCuenta = nc;
+    }
+    
 }
 class Tarjeta extends Pago{
     private String tipo;
     private String numTransaccion;
+    public Tarjeta(float m,Date f, String b,String nc){
+        super(m,f);
+        tipo = b;
+        numTransaccion = nc;
+    }
 }
 class Boleta extends DocTributario{
     
