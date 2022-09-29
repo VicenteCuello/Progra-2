@@ -172,7 +172,6 @@ class Factura extends DocTributario{
         
         
 public class Tarea {
-
     
     public static void main(String[] args) {
         
