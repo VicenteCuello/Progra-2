@@ -24,40 +24,65 @@ class Articulo{
 class DetalleOrden{
     private ArrayList <Articulo> a;
     private int cantidad;
-    private int i;
-    public DetalleOrden(){
-        a = new ArrayList <Articulo>();
-    }
-    public void addArticulo(Articulo r){
-        a.add(r);
+    public DetalleOrden(int c){
+       cantidad = c;
+       a = new ArrayList <Articulo>();
         
     }
+    
     public float calcPrecio(){
-        float total = 0;
-        for(i=0; i< a.size();i++){
-            total= a.get(i).getPrecio() + total;
+        float total1 = 0;
+        for(int i=0; i< a.size();i++){
+            total1= a.get(i).getPrecio() + total1;
         }
-        return total;
-    }
-    public float calcPeso(){
-        float total = 0;
-        for(i=0; i< a.size();i++){
-            total= a.get(i).getPeso() + total;
-        }
-        return total;
+        return total1;
     }
     public float calcPrecioSinIVA(){
-        float total = 0;
-        for(i=0; i< a.size();i++){
-            total= (a.get(i).getPeso()/100)*19 + total;
+        float total3 = 0;
+        for(int i=0; i< a.size();i++){
+            total3= (a.get(i).getPeso()/100)*19 + total3;
         }
-        return total;
+        return total3;
     }
     public float calcIVA(){
-        float total = 0;
-        total = calcPeso() + calcPrecioSinIVA();
-        return total;
+        float total4;
+        total4 = calcPeso() + calcPrecioSinIVA();
+        return total4;
     }
+    public float calcPeso(){
+        float total2 = 0;
+        for(int i=0; i< a.size();i++){
+            total2= a.get(i).getPeso() + total2;
+        }
+        return total2;
+    }
+}
+class OrdenCompra{
+    private Date fecha;
+    private String estado;
+    private DetalleOrden d;
+    private DocTributario dt;
+    private Pago p;
+    
+    public OrdenCompra(Date f,String e,DetalleOrden de){
+        fecha = f;
+        estado = e;
+        d = de;
+    }
+    public float calcPrecioSinIVA(){
+        return d.calcPrecioSinIVA();
+    }
+    public float calcIVA(){
+        return d.calcIVA();
+    }
+    public float calcPrecio(){
+        return d.calcPrecio();
+    }
+    public float calcPeso(){
+        return d.calcPeso();
+    }
+    
+    
 }
 class Cliente{
     private String nombre;
