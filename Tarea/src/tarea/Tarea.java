@@ -84,6 +84,7 @@ class DocTributario{
         rut = run;
         fecha = f;
     }
+    
 }
 class Pago{
     private float monto;
@@ -133,9 +134,14 @@ class Tarjeta extends Pago{
     }
 }
 class Boleta extends DocTributario{
-    
+    public Boleta(String num, String run, Date f){
+        super(num,run,f);
+    }
 }
 class Factura extends DocTributario{
+    public Factura(String num, String run, Date f){
+        super(num,run,f);
+    }
     
 }
         
