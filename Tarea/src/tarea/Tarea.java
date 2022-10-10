@@ -312,7 +312,6 @@ class Factura extends DocTributario{
         
         
 public class Tarea {
-
     
     public static void main(String[] args) {
         Articulo a1 = new Articulo(5, "Juguete", "Juguete para niños", 19990);
