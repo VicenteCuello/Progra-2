@@ -125,8 +125,11 @@ class OrdenCompra{
             if(x.getTipoPago()==1){
                 vue = x.calcDevolucion(pag,totala);
             }
+            else{
+              pag = totala;  
+            }
             estado = "Pagado";
-            pag = totala;
+           
         }
     }
     public float calcPrecio(){
@@ -257,9 +260,9 @@ abstract class Pago{
     public int getTipoPago(){
         return tipa;
     }
-    public float calcDevolucion(float p,float d){
-        if(p< monto + d){
-            return monto + p - d;
+    public float calcDevolucion(float d,float p){
+        if(p<d){
+            return d-p;
             
         }
         else{
@@ -274,7 +277,7 @@ class Efectivo extends Pago{
         super(m,f,1);
     }
     public String toStringPago(){
-        return "Pago con Efectivo\n: "+super.getPago()+"Fecha: "+super.getFecha()+"\n";
+        return "Pago con Efectivo: "+super.getPago()+"\nFecha: "+super.getFecha()+"\n";
     }
     
 }
