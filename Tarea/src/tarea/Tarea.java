@@ -21,23 +21,22 @@ class Articulo{
         return precio;
     }
     public String toString(){
-        return "Nombre:"+nombre+"\nDescripcion:"+descripcion+"\nPeso:"+peso+"\nPrecio:"+precio;
+        return "Nombre:"+nombre+"\nDescripcion:"+descripcion+"\nPeso:"+peso+"\nPrecio:"+precio+"\n";
     }
 }
 class DetalleOrden{
     private Articulo art;
     private int cantidad;
-    private float total1;
-    private float total2;
-    private float total3;
-    private float total4;
+    private float totala;
+    private float totalb;
+    private float totalc;
+    private float totald;
     public DetalleOrden(int c, Articulo objeto){
        cantidad = c;
        art = objeto;
     }
     private ArrayList <Articulo> a;
-    public DetalleOrden(int c){
-       cantidad = c;
+    public DetalleOrden(){
        a = new ArrayList <Articulo>();
         
     }
@@ -47,15 +46,17 @@ class DetalleOrden{
     public float calcPrecio(){
         float total1 = 0;
         for(int i=0; i< a.size();i++){
-            total1= a.get(i).getPrecio() + total1;
+            total1+= a.get(i).getPrecio() + a.get(i).getPrecio()*0.19;
         }
+        totala = total1;
         return total1;
     }
     public float calcPrecioSinIVA(){
         float total3 = 0;
         for(int i=0; i< a.size();i++){
-            total3= (a.get(i).getPrecio()/100)*19 + total3;
+            total3+= a.get(i).getPrecio() ;
         }
+        totalb = total3;
         return total3;
     }
     public float calcIVA(){
@@ -63,7 +64,7 @@ class DetalleOrden{
         for(int i = 0; i<a.size(); i++){
             total4 += a.get(i).getPrecio()*0.19 ;
         }
-        
+        totalc = total4;
         return total4;
     }
     public float calcPeso(){
@@ -71,14 +72,15 @@ class DetalleOrden{
         for(int i=0; i< a.size();i++){
             total2= a.get(i).getPeso() + total2;
         }
+        totald= total2;
         return total2;
     }
     public String toString(){
         String detalle = "";
         for(int i = 0; i<a.size(); i++){
-            detalle += a.get(i).toString()+"-------------------------------------------------------------------\n";
+            detalle += a.get(i).toString()+"\n";
         }
-        detalle += "Precio (Sin IVA):"+total3+"\nIva:"+total4+"\nPeso Total:"+total2+"\nPrecio final:"+total1;
+        detalle += "Precio (Sin IVA):"+totalb+"\nIva:"+totalc+"\nPeso Total:"+totald+"\nPrecio final:"+totala+"\n";
         return detalle;
     }
     
@@ -96,10 +98,10 @@ class OrdenCompra{
     private float total;
     private float deuda;
     private int cant;
-    private float total1;
-    private float total2;
-    private float total3;
-    private float total4;
+    private float totala;
+    private float totalb;
+    private float totalc;
+    private float totald;
     private float pag = 0;
     private float vue = 0;
     public OrdenCompra(Date f,Cliente c,DocTributario d,Direccion di){
@@ -116,29 +118,31 @@ class OrdenCompra{
         detord.add(n);
     }
     public void addPago(Pago x){
-        if(pag < total1){
+        if(pag < totala){
             p.add(x);
             pag =x.getPago()+pag;
-        }if(pag >= total1){
+        }if(pag >= totala){
             if(x.getTipoPago()==1){
-                vue = x.calcDevolucion(total1);
+                vue = x.calcDevolucion(pag,totala);
             }
             estado = "Pagado";
-            pag = total1;
+            pag = totala;
         }
     }
     public float calcPrecio(){
         float total1 = 0;
         for(int i=0; i< detord.size();i++){
-            total1= detord.get(i).calcPrecio() + total1;
+            total1+= detord.get(i).calcPrecio() + detord.get(i).calcPrecio()*0.19;
         }
+        totala = total1;
         return total1;
     }
     public float calcPrecioSinIVA(){
         float total3 = 0;
         for(int i=0; i< detord.size();i++){
-            total3= (detord.get(i).calcPrecio()/100)*19 + total3;
+            total3+= detord.get(i).calcPrecio() ;
         }
+        totalb= total3;
         return total3;
     }
     public float calcIVA(){
@@ -146,7 +150,7 @@ class OrdenCompra{
         for(int i = 0; i<detord.size(); i++){
             total4 += detord.get(i).calcPrecio()*0.19 ;
         }
-        
+        totalc= total4;
         return total4;
     }
     public float calcPeso(){
@@ -154,6 +158,7 @@ class OrdenCompra{
         for(int i=0; i< detord.size();i++){
             total2= detord.get(i).calcPeso() + total2;
         }
+        totald= total2;
         return total2;
     }
     public String toStringOrdenCompra(){
@@ -165,13 +170,13 @@ class OrdenCompra{
         n += "Fecha: "+fecha+"\n";
         n += "Lista de Pagos: \n";
         for(int i = 0; i < p.size(); i++){
-            n += p.get(i).toStringPago();
+            n += p.get(i).toStringPago()+"\n";
         }
         for(int i = 0; i < detord.size(); i++){
-            n += "Detalle de Orden numero " + i+"\n";
-            n += detord.get(i).toString();
+            n += "Detalle de Orden numero " + (i+1)+"\n";
+            n += detord.get(i).toString()+"\n";
         }
-        n += "PRECIO TOTAL: " + total1+"\nPAGADO:"+pag+"\nVUELTO: "+vue+"\nTOTAL SIN IVA: "+total3+"\nIVA TOTAL: "+total4+"\nPESO TOTAL: "+total2+"\n";
+        n += "Precio total: " + totala+"\nPagado:"+pag+"\nVuelto: "+vue+"\nTotal (Sin IVA): "+totalb+"\nIVA total pagado: "+totalc+"\nPeso Total: "+totald+"\n";
         return n;
     }
 }
@@ -189,7 +194,7 @@ class Cliente{
         return rut;
     }
     public String toString(){
-        return "Nombre: "+nombre+",\nRut: "+rut;
+        return "Nombre: "+nombre+",\nRut: "+rut+"\n";
     }
     
 }
@@ -199,7 +204,7 @@ class Direccion{
         direccion = dir;
     }
     public String toString(){
-        return "Direccion:"+direccion;
+        return "Direccion:"+direccion+"\n";
     }
 }
 class DocTributario{
@@ -224,10 +229,10 @@ class DocTributario{
     }
     public String toString(){
         if(tdoc==1){
-          return "Boleta\nNumero:"+numero+"\nRUT:"+rut+"\nFecha: "+fecha;    
+          return "Boleta\nNumero:"+numero+"\nRUT:"+rut+"\nFecha: "+fecha+"\n";    
         }
         if(tdoc==2){
-          return "Factura\nNumero:"+numero+"\nRUT:"+rut+"\nFecha: "+fecha;    
+          return "Factura\nNumero:"+numero+"\nRUT:"+rut+"\nFecha: "+fecha+"\n";    
         }
         return "";
     }
@@ -252,15 +257,15 @@ abstract class Pago{
     public int getTipoPago(){
         return tipa;
     }
-    public float calcDevolucion(float p){
-        if(getPago() <= p){
-            p = p - getPago();
+    public float calcDevolucion(float p,float d){
+        if(p< monto + d){
+            return monto + p - d;
             
         }
-        else if(p < getPago()){
-            p = 0;
+        else{
+            return 0;
         }
-        return p;
+        
     }
     abstract public String toStringPago();
 }
@@ -269,7 +274,7 @@ class Efectivo extends Pago{
         super(m,f,1);
     }
     public String toStringPago(){
-        return "Pago con Efectivo\n: "+super.getPago()+"Fecha: "+super.getFecha();
+        return "Pago con Efectivo\n: "+super.getPago()+"Fecha: "+super.getFecha()+"\n";
     }
     
 }
@@ -282,7 +287,7 @@ class Transferencia extends Pago{
         numCuenta = nc;
     }
     public String toStringPago(){
-        return "Pago por Transferencia: "+super.getPago()+"\nFecha: "+super.getFecha()+"\nBanco:"+banco+"Numero de Cuenta:"+numCuenta;
+        return "Pago por Transferencia: "+super.getPago()+"\nFecha: "+super.getFecha()+"\nBanco:"+banco+"Numero de Cuenta:"+numCuenta+"\n";
     }
     
 }
@@ -295,7 +300,7 @@ class Tarjeta extends Pago{
         numTransaccion = nc;
     }
     public String toStringPago(){
-        return "Pago con Tarjeta"+super.getPago()+"\nFecha:"+super.getFecha()+"\nTipo de tarjeta:"+tipo+"\nNumero de Transaccion:"+numTransaccion;
+        return "Pago con Tarjeta"+super.getPago()+"\nFecha:"+super.getFecha()+"\nTipo de tarjeta:"+tipo+"\nNumero de Transaccion:"+numTransaccion+"\n";
     }
 }
 class Boleta extends DocTributario{
